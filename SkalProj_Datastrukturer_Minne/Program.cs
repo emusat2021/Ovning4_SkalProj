@@ -268,6 +268,25 @@ namespace SkalProj_Datastrukturer_Minne
             Console.ResetColor();
         }
 
+        public string ReversText(string text)
+        {
+            Stack<char> stack = new Stack<char>();
+            char[] revers = new char[text.Length];
+            string result = String.Empty;
+
+            foreach (char c in text)
+            {
+                stack.Push(c);
+            }
+            for (int i = 0; i < text.Length; i++)
+            {
+                revers[i] = stack.Pop();
+            }
+            result = new string(revers);
+
+            return result;
+        }
+
     }
 }
 
