@@ -124,6 +124,44 @@ namespace SkalProj_Datastrukturer_Minne
              * Create a switch with cases to enqueue items or dequeue items
              * Make sure to look at the queue after Enqueueing and Dequeueing to see how it behaves
             */
+            Queue<string> queue = new Queue<string>();
+            bool notToMainMenu = true;
+
+            while (notToMainMenu)
+            {
+                //sub menu
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("Please navigate through the menu below:"
+                    + "\n+<Name>.   Add name in Queue (FIFO) (example: +Adam will add Adam to the Queue)"
+                    + "\n-.   Remove first name from Queue (FIFO) (example: \"-\"  from the Queue)"
+                    + "\nq.         Go back to Main Menu");
+
+                string input = Console.ReadLine().ToLower();
+                char nav = input[0];
+                string value = input.Substring(1);
+
+                // Add name on the Queue respective remove it as the user will have the posibility to choose
+                switch (nav)
+                {
+                    case '+':
+                        queue.Enqueue(value);
+                        //feedback to the user after adding an item in Queue
+                        PrintQueueInfo(queue);
+                        continue;
+                    case '-':
+                        queue.Dequeue();
+                        //feedback to the user after removing an item from the Queue
+                        PrintQueueInfo(queue);
+                        continue;
+                    case 'q':
+                        notToMainMenu = false;
+                        break;
+                }
+
+            }
+            //the final feedback to the user after the user will go out from the sub menu
+            PrintQueueInfo(queue);
+
         }
 
         /// <summary>
@@ -157,6 +195,17 @@ namespace SkalProj_Datastrukturer_Minne
             }
             Console.WriteLine($"Number of items in the List: {theList.Count}");
             Console.WriteLine($"Capacity of the List: {theList.Capacity}");
+            Console.ResetColor();
+        }
+        public static void PrintQueueInfo(Queue<string> queue)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("The below names are in the Queue:");
+            foreach (string str in queue)
+            {
+                Console.WriteLine($"Name: {str}");
+            }
+            Console.WriteLine($"Number of items in the Queue: {queue.Count}");
             Console.ResetColor();
         }
 
