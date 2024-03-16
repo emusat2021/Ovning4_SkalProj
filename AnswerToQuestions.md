@@ -41,5 +41,8 @@ Object y assign the value of object x. For this reason when object y assign a ne
 
 6. To use an array you must know from the begining the size of it.
 
+## Exercise 3) ExamineStack() Answers:
+2. In ICA example is not fair that the last in should be the first out.
+
 
 

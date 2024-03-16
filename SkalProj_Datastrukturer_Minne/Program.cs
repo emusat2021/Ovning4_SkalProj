@@ -174,6 +174,54 @@ namespace SkalProj_Datastrukturer_Minne
              * Create a switch with cases to push or pop items
              * Make sure to look at the stack after pushing and and poping to see how it behaves
             */
+            Stack<string> stack = new Stack<string>();
+            bool notToMainMenu = true;
+
+            while (notToMainMenu)
+            {
+                //sub menu
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("Please navigate through the menu below:"
+                    + "\n+<Name>.   Add name in Stack (LIFO) (example: +Adam will add Adam to the Stack)"
+                    + "\n-.   Remove last name from Stack (LIFO) (example: \"-\"  from the Stack)"
+                    + "\nq.         Go back to Main Menu");
+
+                string input = Console.ReadLine().ToLower();
+                char nav = input[0];
+                string value = input.Substring(1);
+                
+
+                // Add name on the Stack respective remove it as the user will have the posibility to choose
+                switch (nav)
+                {
+                    case '+':
+                        stack.Push(value);
+                        //feedback to the user after adding an item in Stack
+                        PrintStackInfo(stack);
+                        continue;
+                    case '-':
+                        if (stack.Count > 0)
+                        {
+                            stack.Pop();
+                            //feedback to the user after removing an item from the Stack
+                            PrintStackInfo(stack);
+                        }
+                        //Pop() method will give InvalidOperationException if the Stack is empty.
+                        // info to user that Stack is empty and there is nothing to remove
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine("The Stack is empty, there is nothing to remove!");
+                        }
+                        continue;
+                    case 'q':
+                        notToMainMenu = false;
+                        break;
+                }
+
+            }
+            //the final feedback to the user after the user will go out from the sub menu
+            PrintStackInfo(stack);
         }
 
         static void CheckParanthesis()
@@ -206,6 +254,17 @@ namespace SkalProj_Datastrukturer_Minne
                 Console.WriteLine($"Name: {str}");
             }
             Console.WriteLine($"Number of items in the Queue: {queue.Count}");
+            Console.ResetColor();
+        }
+        public static void PrintStackInfo(Stack<string> stack)
+        {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("The below names are in the Stack:");
+            foreach (string str in stack)
+            {
+                Console.WriteLine($"Name: {str}");
+            }
+            Console.WriteLine($"Number of items in the Stack: {stack.Count}");
             Console.ResetColor();
         }
 
