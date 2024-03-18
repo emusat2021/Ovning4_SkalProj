@@ -44,7 +44,7 @@ Object y assign the value of object x. For this reason when object y assign a ne
 ## Exercise 3) ExamineStack() Answers:
 2. In ICA example is not fair that the last in should be the first out.
 
-## Exercise 4) ExamineStack() Answers:
+## Exercise 4) CheckParanthesis() Answers:
 1. I use the folowing data structures:
 -	Dicionary;
 -	Stack<string>();
