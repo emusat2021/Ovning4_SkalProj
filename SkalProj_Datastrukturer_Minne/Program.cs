@@ -232,6 +232,54 @@ namespace SkalProj_Datastrukturer_Minne
              * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
              */
 
+            bool notToMainMenu = true;
+
+            while (notToMainMenu)
+            {
+                //sub menu
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("Please navigate through the menu below:"
+                    + "\n+<Text>.   Add in text (example: +text will add text. It will be check if paranthesis are well formed)"
+                    + "\n-.   Remove last text from Console"
+                    + "\nq.         Go back to Main Menu");
+
+                string input = Console.ReadLine().ToLower();
+                char nav = input[0];
+                string value = input.Substring(1);
+
+                switch (nav)
+                {
+                    case '+':
+                        if (IsWellFormed(value))
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("Is well formed");
+                        }
+                        else if (!IsWellFormed(value))
+                        {
+                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                            Console.WriteLine("Is Not well formed");
+                        }
+                        continue;
+                    case '-':
+                        if (value.Length > 0)
+                        {
+                            // clear the text
+                            input = String.Empty;
+                        }
+                        // info to user that no text added there is nothing to remove
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine("There is nothing to remove!");
+                        }
+                        continue;
+                    case 'q':
+                        notToMainMenu = false;
+                        break;
+                }
+            }
+
         }
         public static void PrintListInfo(List<string> theList)
         {
@@ -268,7 +316,7 @@ namespace SkalProj_Datastrukturer_Minne
             Console.ResetColor();
         }
 
-        public string ReversText(string text)
+        public static string ReversText(string text)
         {
             Stack<char> stack = new Stack<char>();
             char[] revers = new char[text.Length];
@@ -287,6 +335,31 @@ namespace SkalProj_Datastrukturer_Minne
             return result;
         }
 
+        public static bool IsWellFormed(string text)
+        {
+            Stack<char> stack = new Stack<char>();
+            Dictionary<char, char> dictFormed = new()
+            {
+                {'{', '}'},
+                {'[', ']'},
+                {'(', ')'},
+            };
+            foreach (char c in text)
+            {
+                //push just the open paranthesis
+                if(dictFormed.ContainsKey(c))
+                {
+                    stack.Push(c);
+                }
+                else if(dictFormed.ContainsValue(c))
+                {
+                    //check if the value from the pop key is the same as key's value
+                    if (stack.Count == 0 || dictFormed[stack.Pop()] == c)
+                        return true;
+                }
+            }
+            return false;
+        }
     }
 }
 
